@@ -21,7 +21,7 @@ func SetLevel(level Level) {
 
 func Log(level Level, v ...interface{}) {
 	if level >= CurrentLevel {
-	  str := ""
+		str := ""
 		switch level {
 		case DEBUG:
 			str = "DEBUG"
