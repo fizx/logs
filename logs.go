@@ -34,9 +34,15 @@ func Log(level Level, v ...interface{}) {
 		default:
 			panic("what level?")
 		}
-		first := v[0].(string)
+		first, isString := v[0].(string)
 		remaining := v[1:]
-		log.Printf("["+str+"]"+first, remaining...)
+		if isString {
+			log.Printf("["+str+"]"+first, remaining...)
+		} else {
+			slice := []interface{}{"[" + str + "]", first}
+			slice = append(slice, remaining...)
+			log.Println(slice...)
+		}
 	}
 }
 
