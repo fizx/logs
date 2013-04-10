@@ -1,7 +1,9 @@
 package logs
 
 import (
+	"fmt"
 	"log"
+	"os"
 )
 
 type Level int
@@ -14,6 +16,7 @@ const (
 )
 
 var CurrentLevel Level
+var Logger *log.Logger = log.New(os.Stderr, "", log.LstdFlags|log.Lshortfile)
 
 func SetLevel(level Level) {
 	CurrentLevel = level
@@ -37,11 +40,13 @@ func Log(level Level, v ...interface{}) {
 		first, isString := v[0].(string)
 		remaining := v[1:]
 		if isString {
-			log.Printf("["+str+"] "+first, remaining...)
+			output := fmt.Sprintf("["+str+"] "+first, remaining...)
+			Logger.Output(3, output)
 		} else {
 			slice := []interface{}{"[" + str + "]", first}
 			slice = append(slice, remaining...)
-			log.Println(slice...)
+			output := fmt.Sprintln(slice...)
+			Logger.Output(3, output)
 		}
 	}
 }
