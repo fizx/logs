@@ -4,5 +4,6 @@ A (so far) very simple logging package for golang.  Go's default logger doesn't 
 - INFO
 - WARN
 - ERROR
+- FATAL
 
 Also, I only care about the root logger.  Deal with it (or pull request).
