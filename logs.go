@@ -13,6 +13,7 @@ const (
 	INFO
 	WARN
 	ERROR
+	FATAL
 )
 
 var CurrentLevel Level
@@ -34,6 +35,8 @@ func Log(level Level, v ...interface{}) {
 			str = "WARN"
 		case ERROR:
 			str = "ERROR"
+		case FATAL:
+			str = "FATAL"
 		default:
 			panic("what level?")
 		}
@@ -65,4 +68,9 @@ func Warn(v ...interface{}) {
 
 func Error(v ...interface{}) {
 	Log(ERROR, v...)
+}
+
+func Fatal(v ...interface{}) {
+	Log(FATAL, v...)
+	os.Exit(1)
 }
